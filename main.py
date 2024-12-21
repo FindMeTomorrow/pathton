@@ -26,6 +26,10 @@ class _BasePathtonClass(object):
     def adjust_value(degrees_value: float | int) -> float:
         return degrees_value
 
+    @staticmethod
+    def _return_new_object(degrees_value: float | int = 0.0):
+        return _BasePathtonClass(degrees_value)
+
     def __int__(self):
         return int(self.degrees)
 
@@ -57,25 +61,25 @@ class _BasePathtonClass(object):
         return float(self) >= float(other)
 
     def __add__(self, other):
-        return _BasePathtonClass(self.adjust_value(float(self) + float(other)))
+        return self._return_new_object(self.adjust_value(float(self) + float(other)))
 
     def __sub__(self, other):
-        return _BasePathtonClass(self.adjust_value(float(self) - float(other)))
+        return self._return_new_object(self.adjust_value(float(self) - float(other)))
 
     def __mul__(self, other):
-        return _BasePathtonClass(self.adjust_value(float(self) * float(other)))
+        return self._return_new_object(self.adjust_value(float(self) * float(other)))
 
     def __pow__(self, power, modulo=None):
-        return _BasePathtonClass(self.adjust_value(float(self) ** float(power)))
+        return self._return_new_object(self.adjust_value(float(self) ** float(power)))
 
     def __truediv__(self, other):
-        return _BasePathtonClass(self.adjust_value(float(self) / float(other)))
+        return self._return_new_object(self.adjust_value(float(self) / float(other)))
 
     def __floordiv__(self, other):
-        return _BasePathtonClass(self.adjust_value(float(self) // float(other)))
+        return self._return_new_object(self.adjust_value(float(self) // float(other)))
 
     def __mod__(self, other):
-        return _BasePathtonClass(self.adjust_value(float(self) % float(other)))
+        return self._return_new_object(self.adjust_value(float(self) % float(other)))
 
     def __divmod__(self, other) -> tuple:
         return self // other, self % other
@@ -133,7 +137,7 @@ class _BasePathtonClass(object):
         return self
 
     def __copy__(self):
-        return _BasePathtonClass(self.degrees)
+        return self._return_new_object(self.degrees)
 
 
 class Azimuth(_BasePathtonClass):
@@ -144,35 +148,15 @@ class Azimuth(_BasePathtonClass):
     def adjust_value(degrees_value: float | int) -> float | int:
         return degrees_value % 360
 
+    @staticmethod
+    def _return_new_object(degrees_value: float | int = 0.0):
+        return Azimuth(degrees_value)
+
     def __str__(self):
         return f"{self.degrees}°"
 
     def __repr__(self):
         return f"Azimuth({float(self.degrees)})"
-
-    def __add__(self, other):
-        return Azimuth(self.adjust_value(float(self) + float(other)))
-
-    def __sub__(self, other):
-        return Azimuth(self.adjust_value(float(self) - float(other)))
-
-    def __mul__(self, other):
-        return Azimuth(self.adjust_value(float(self) * float(other)))
-
-    def __pow__(self, power, modulo=None):
-        return Azimuth(self.adjust_value(float(self) ** float(power)))
-
-    def __truediv__(self, other):
-        return Azimuth(self.adjust_value(float(self) / float(other)))
-
-    def __floordiv__(self, other):
-        return Azimuth(self.adjust_value(float(self) // float(other)))
-
-    def __mod__(self, other):
-        return Azimuth(self.adjust_value(float(self) % float(other)))
-
-    def __copy__(self):
-        return Azimuth(self.degrees)
 
 
 class Latitude(_BasePathtonClass):
@@ -188,32 +172,12 @@ class Latitude(_BasePathtonClass):
             degrees_value %= 180
         return degrees_value - 90
 
+    @staticmethod
+    def _return_new_object(degrees_value: float | int = 0.0):
+        return Latitude(degrees_value)
+
     def __repr__(self):
         return f"Latitude({float(self.degrees)})"
-
-    def __add__(self, other):
-        return Latitude(self.adjust_value(float(self) + float(other)))
-
-    def __sub__(self, other):
-        return Latitude(self.adjust_value(float(self) - float(other)))
-
-    def __mul__(self, other):
-        return Latitude(self.adjust_value(float(self) * float(other)))
-
-    def __pow__(self, power, modulo=None):
-        return Latitude(self.adjust_value(float(self) ** float(power)))
-
-    def __truediv__(self, other):
-        return Latitude(self.adjust_value(float(self) / float(other)))
-
-    def __floordiv__(self, other):
-        return Latitude(self.adjust_value(float(self) // float(other)))
-
-    def __mod__(self, other):
-        return Latitude(self.adjust_value(float(self) % float(other)))
-
-    def __copy__(self):
-        return Latitude(self.degrees)
 
 
 class Longitude(_BasePathtonClass):
@@ -224,32 +188,12 @@ class Longitude(_BasePathtonClass):
     def adjust_value(degrees_value: float | int) -> float | int:
         return (degrees_value + 540) % 360 - 180
 
+    @staticmethod
+    def _return_new_object(degrees_value: float | int = 0.0):
+        return Longitude(degrees_value)
+
     def __repr__(self):
         return f"Longitude({float(self.degrees)})"
-
-    def __add__(self, other):
-        return Longitude(self.adjust_value(float(self) + float(other)))
-
-    def __sub__(self, other):
-        return Longitude(self.adjust_value(float(self) - float(other)))
-
-    def __mul__(self, other):
-        return Longitude(self.adjust_value(float(self) * float(other)))
-
-    def __pow__(self, power, modulo=None):
-        return Longitude(self.adjust_value(float(self) ** float(power)))
-
-    def __truediv__(self, other):
-        return Longitude(self.adjust_value(float(self) / float(other)))
-
-    def __floordiv__(self, other):
-        return Longitude(self.adjust_value(float(self) // float(other)))
-
-    def __mod__(self, other):
-        return Longitude(self.adjust_value(float(self) % float(other)))
-
-    def __copy__(self):
-        return Longitude(self.degrees)
 
 
 class Location(object):
