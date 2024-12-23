@@ -60,6 +60,9 @@ class _BasePathtonClass(object):
     def __ge__(self, other):
         return float(self) >= float(other)
 
+    def __abs__(self):
+        return abs(float(self))
+
     def __add__(self, other):
         return self._return_new_object(self.adjust_value(float(self) + float(other)))
 
@@ -239,7 +242,7 @@ class Location(object):
     @staticmethod
     def adjust_longitude_value(latitude_value: float | int,
                                longitude_value: float | int) -> float | int:
-        if ((latitude_value + 90) // 180) % 2:
+        if abs(latitude_value) > 90 and ((latitude_value + 90) // 180) % 2:
             longitude_value += 180
         return longitude_value
 
