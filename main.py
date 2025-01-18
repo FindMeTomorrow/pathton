@@ -37,10 +37,7 @@ class _BasePathtonClass(object):
         return float(self.degrees)
 
     def __str__(self):
-        if self.degrees > 0:
-            return f"+{self.degrees}°"
-        else:
-            return f"{self.degrees}°"
+        return str(self.degrees)
 
     def __eq__(self, other):
         return float(self) == float(other)
@@ -142,6 +139,12 @@ class _BasePathtonClass(object):
     def __copy__(self):
         return self._return_new_object(self.degrees)
 
+    def beauty_str(self):
+        if self.degrees > 0:
+            return f"+{self.degrees}°"
+        else:
+            return f"{self.degrees}°"
+
 
 class Azimuth(_BasePathtonClass):
     def __init__(self, degrees_value: float | int = 0.0):
@@ -155,11 +158,11 @@ class Azimuth(_BasePathtonClass):
     def _return_new_object(degrees_value: float | int = 0.0):
         return Azimuth(degrees_value)
 
-    def __str__(self):
-        return f"{self.degrees}°"
-
     def __repr__(self):
         return f"Azimuth({float(self.degrees)})"
+
+    def beauty_str(self):
+        return f"{self.degrees}°"
 
 
 class Latitude(_BasePathtonClass):
