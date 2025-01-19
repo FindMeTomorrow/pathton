@@ -369,6 +369,10 @@ class Location(object):
         self.latitude %= other.latitude
         return self
 
+    def __iter__(self):
+        yield self.latitude.degrees
+        yield self.longitude.degrees
+
     def __getitem__(self, item):
         match item:
             case 0:
@@ -390,14 +394,9 @@ class Location(object):
     def __copy__(self):
         return Location(self.latitude.degrees, self.longitude.degrees)
 
-    def to_tuple(self) -> tuple[float, float]:
-        return self.latitude.degrees, self.longitude.degrees
-
-    def to_list(self) -> list[float]:
-        return [self.latitude.degrees, self.longitude.degrees]
-
-    def to_dict(self) -> dict[str: float]:
-        return {'latitude': self.latitude.degrees, 'longitude': self.longitude.degrees}
+    def dict(self) -> dict[str: float]:
+        return {'Latitude': self.latitude.degrees,
+                'Longitude': self.longitude.degrees}
 
 
 class Direction(object):
@@ -592,6 +591,11 @@ class Direction(object):
         self.azimuth %= other.azimuth
         return self
 
+    def __iter__(self):
+        yield self.latitude.degrees
+        yield self.longitude.degrees
+        yield self.azimuth.degrees
+
     def __getitem__(self, item):
         match item:
             case 0:
@@ -617,13 +621,7 @@ class Direction(object):
     def __copy__(self):
         return Direction(self.latitude.degrees, self.longitude.degrees, self.azimuth.degrees)
 
-    def get_tuple(self) -> tuple[float, float, float]:
-        return self.latitude.degrees, self.longitude.degrees, self.azimuth.degrees
-
-    def get_list(self) -> list[float]:
-        return [self.latitude.degrees, self.longitude.degrees, self.azimuth.degrees]
-
-    def get_dict(self) -> dict[str: float]:
-        return {'latitude': self.latitude.degrees,
-                'longitude': self.longitude.degrees,
-                'azimuth': self.azimuth.degrees}
+    def dict(self) -> dict[str: float]:
+        return {'Latitude': self.latitude.degrees,
+                'Longitude': self.longitude.degrees,
+                'Azimuth': self.azimuth.degrees}
