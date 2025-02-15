@@ -249,6 +249,10 @@ class Location(object):
             longitude_value += 180
         return longitude_value
 
+    @staticmethod
+    def keys():
+        return 'Latitude', 'Longitude'
+
     def __str__(self):
         return f"{self.latitude}, {self.longitude}"
 
@@ -374,13 +378,12 @@ class Location(object):
         yield self.longitude.degrees
 
     def __getitem__(self, item):
-        match item:
-            case 0:
-                return self.latitude
-            case 1:
-                return self.longitude
-            case _:
-                raise IndexError()
+        if item == 0 or item == 'Latitude':
+            return float(self.latitude)
+        elif item == 1 or item == 'Longitude':
+            return float(self.longitude)
+        else:
+            raise IndexError()
 
     def __setitem__(self, key, value: float | int):
         match key:
@@ -393,10 +396,6 @@ class Location(object):
 
     def __copy__(self):
         return Location(self.latitude.degrees, self.longitude.degrees)
-
-    def dict(self) -> dict[str: float]:
-        return {'Latitude': self.latitude.degrees,
-                'Longitude': self.longitude.degrees}
 
 
 class Direction(object):
@@ -452,6 +451,10 @@ class Direction(object):
     def route(self, route_values: tuple | list | dict):
         self.coordinates = route_values[0], route_values[1]
         self.azimuth = route_values[2]
+
+    @staticmethod
+    def keys():
+        return 'Latitude', 'Longitude', 'Azimuth'
 
     def __str__(self):
         return f"{self.latitude}, {self.longitude}, {self.azimuth}"
@@ -597,15 +600,14 @@ class Direction(object):
         yield self.azimuth.degrees
 
     def __getitem__(self, item):
-        match item:
-            case 0:
-                return self.latitude
-            case 1:
-                return self.longitude
-            case 2:
-                return self.azimuth
-            case _:
-                raise IndexError()
+        if item == 0 or item == 'Latitude':
+            return float(self.latitude)
+        elif item == 1 or item == 'Longitude':
+            return float(self.longitude)
+        elif item == 2 or item == 'Azimuth':
+            return float(self.azimuth)
+        else:
+            raise IndexError()
 
     def __setitem__(self, key, value: float | int):
         match key:
@@ -620,8 +622,3 @@ class Direction(object):
 
     def __copy__(self):
         return Direction(self.latitude.degrees, self.longitude.degrees, self.azimuth.degrees)
-
-    def dict(self) -> dict[str: float]:
-        return {'Latitude': self.latitude.degrees,
-                'Longitude': self.longitude.degrees,
-                'Azimuth': self.azimuth.degrees}
